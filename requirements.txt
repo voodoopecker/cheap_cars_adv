@@ -1,0 +1,4 @@
+selenium==4.11.2
+loguru==0.7.0
+undetected-chromedriver==3.5.0
+aiogram==3.0.0b9
