@@ -5,8 +5,11 @@ __all__ = ['browser_open_source_page', 'save_source_page', 'gui_browser_source_s
 import time
 
 import loguru
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import undetected_chromedriver as uc
 import pyautogui
+from loguru import logger as LOGGER
 
 import settings
 
@@ -20,10 +23,16 @@ class NewChrome(uc.Chrome):
 def browser_open_source_page():
     '''Function to get page source'''
 
-    options = uc.ChromeOptions()
-    options.add_argument('--headless=new')
-    driver = NewChrome(use_subprocess=True, options=options)
+    # options = uc.ChromeOptions()
+    # options.add_argument('--headless=new')
+    # driver = NewChrome(use_subprocess=True, options=options)
+
     # driver = uc.Chrome(use_subprocess=True, options=options)
+
+    options = Options()
+    # options.headless = True
+    driver = webdriver.Chrome(options=options)
+
     driver.get(settings.MAIN_LINK)
     time.sleep(10)
     driver.get(f'view-source:{settings.MAIN_LINK}')
@@ -31,6 +40,7 @@ def browser_open_source_page():
     page = driver.page_source
     time.sleep(3)
     save_source_page(page)
+    LOGGER.success('Driver has gotten source')
     driver.close()
 
 
@@ -39,6 +49,7 @@ def save_source_page(page):
 
     with open('source.html', 'w', encoding='utf-8') as output_file:
         output_file.write(page)
+    LOGGER.success('source.html has been saved')
 
 
 def gui_browser_source_saving():
