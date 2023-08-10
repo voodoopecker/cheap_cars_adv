@@ -1,4 +1,5 @@
 import re
+import json
 
 from loguru import logger as LOGGER
 
@@ -54,10 +55,31 @@ for item in sale_ids:
                            }
     except Exception as err:
         LOGGER.error(f'{counter} - {item} - {filtered_name_link_saleid_price[0]} - {err}')
-        data_dict[item] = None
+        data_dict[item] = {}
 
 cleared_data = {key: value for key, value in data_dict.items() if data_dict[key]}  # without None values
 
 filtered_data = {key: value for key, value in cleared_data.items()  # items with discount only
                  if float(data_dict[key]['lower_market_rate'][:-1]) > 0}
 print(filtered_data)
+
+def saving_cleared_data_to_file():
+    '''Function to save data dictionary without None items'''
+
+    with open('cleared_data.json', 'a', encoding='utf-8') as output_file:
+        json.dump(cleared_data, output_file)
+    LOGGER.success('cleared_data has been saved to file')
+
+
+def saving_filtered_data_to_file():
+    '''Function to save data dictionary with filtered advertisements only'''
+
+    with open('filtered_data.json', 'w', encoding='utf-8') as output_file:
+        json.dump(filtered_data, output_file)
+    LOGGER.success('filtered_data has been saved to file')
+
+
+
+saving_cleared_data_to_file()
+
+saving_filtered_data_to_file()
