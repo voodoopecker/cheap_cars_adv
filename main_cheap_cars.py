@@ -5,6 +5,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 import handlers
 from settings import TOKEN
+from use_data import starter
 
 LOGGER.add('logs/debug.log', format='{time}|{level}|{module}.{function}:{line} - {message}', level='DEBUG', rotation='00:00', compression='zip')
 
@@ -15,12 +16,12 @@ async def main():
     dp = Dispatcher()
 
     scheduler = AsyncIOScheduler()
-    # scheduler.add_job(START_FUNCTION, 'interval', seconds=3600)
+    scheduler.add_job(starter, 'interval', seconds=3600)
     scheduler.start()
 
     dp.include_router(handlers.router)
     await bot.delete_webhook(drop_pending_updates=True)
-    LOGGER.success('Started')
+    LOGGER.success('Bot started')
     await dp.start_polling(bot)
 
 

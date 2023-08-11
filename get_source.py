@@ -4,7 +4,6 @@ __all__ = ['browser_open_source_page', 'save_source_page', 'gui_browser_source_s
 
 import time
 
-import loguru
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import undetected_chromedriver as uc
@@ -20,7 +19,7 @@ class NewChrome(uc.Chrome):
         pass
 
 
-def browser_open_source_page():
+async def browser_open_source_page():
     '''Function to get page source'''
 
     # options = uc.ChromeOptions()
@@ -35,16 +34,19 @@ def browser_open_source_page():
 
     driver.get(settings.MAIN_LINK)
     time.sleep(10)
+    driver.save_screenshot('screenshot.png')
     driver.get(f'view-source:{settings.MAIN_LINK}')
     time.sleep(10)
     page = driver.page_source
     time.sleep(3)
-    save_source_page(page)
+
+    await save_source_page(page)
+
     LOGGER.success('Driver has gotten source')
     driver.close()
 
 
-def save_source_page(page):
+async def save_source_page(page):
     '''Saves downloaded page to file'''
 
     with open('source.html', 'w', encoding='utf-8') as output_file:
@@ -52,7 +54,7 @@ def save_source_page(page):
     LOGGER.success('source.html has been saved')
 
 
-def gui_browser_source_saving():
+async def gui_browser_source_saving():
     '''Browser GUI algorithm for working with websites that have protection against automated scraping'''
 
     pyautogui.hotkey('ctrl', 's')  # open save as dialog
@@ -67,6 +69,3 @@ def gui_browser_source_saving():
     time.sleep(5)
     pyautogui.hotkey('alt', 'f4')
     time.sleep(1)
-
-
-browser_open_source_page()

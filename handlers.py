@@ -14,15 +14,11 @@ bot = Bot(TOKEN)
 
 @router.message(Command(commands=['start']))
 async def start_command(message: Message):
-    await message.answer('Hello, master!')
+    await message.answer('Greetings and welcome... I want to play a game.')
 
 @router.message(F.text.startswith('post'), F.from_user.id == ADMIN_ID)
 async def post_new_message(message: Message):
-    messages = await use_data.post_message()
-    for saleid, data in messages.items():
-        print(saleid, data)
-        await bot.send_message(chat_id=GROUP_ID, text=f'{saleid}{data}')
-        await asyncio.sleep(3)
+    await use_data.starter()
 
 @router.message()
 async def unknown_command(message: Message):
