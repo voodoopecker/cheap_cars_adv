@@ -67,9 +67,10 @@ async def gathering_data():
             data_dict[item] = {}
 
     cleared_data = {key: value for key, value in data_dict.items() if data_dict[key]}  # without None values
-
     filtered_data = {key: value for key, value in cleared_data.items()  # items with discount only
                      if float(data_dict[key]['lower_market_rate'][:-1]) > 0}
+    LOGGER.debug(f'Number of items in new cleared_data: {len(cleared_data)}')
+    LOGGER.debug(f'Number of items in filtered_data: {len(filtered_data)}')
 
     await saving_cleared_data_to_file(cleared_data)
     await reduce_cleared_data()
@@ -90,7 +91,7 @@ async def saving_cleared_data_to_file(cleared_data):
 
     with open('cleared_data.json', 'w', encoding='utf-8') as output_file:
         json.dump(updated_data, output_file)
-    LOGGER.success('cleared_data.json has been updated with new data')
+    LOGGER.success(f'cleared_data.json has been updated with new data. Total items: {len(updated_data)}')
 
 
 async def reduce_cleared_data():
@@ -109,6 +110,10 @@ async def reduce_cleared_data():
 
 async def saving_filtered_data_to_file(filtered_data):
     """Function to save data dictionary with filtered advertisements only"""
+
+    if not os.path.exists('filtered_data.json'):
+        with open('filtered_data.json', 'w', encoding='utf-8') as output_file:
+            output_file.write('{}')
 
     if filtered_data:
         with open('filtered_data.json', 'w', encoding='utf-8') as output_file:

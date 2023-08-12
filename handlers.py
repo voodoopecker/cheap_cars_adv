@@ -19,7 +19,7 @@ async def start_command(message: Message):
 
 
 @router.message(F.text.startswith('post'), F.from_user.id == ADMIN_ID)  # manual launcher
-async def post_new_message():
+async def post_new_message(message: Message):
     await use_data.starter()
 
 
