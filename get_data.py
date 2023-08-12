@@ -108,6 +108,6 @@ async def saving_filtered_data_to_file(filtered_data):
     if filtered_data:
         with open('filtered_data.json', 'w', encoding='utf-8') as output_file:
             json.dump(filtered_data, output_file)
-        LOGGER.success('filtered_data has been saved to file', list(*filtered_data))
+        LOGGER.success('filtered_data has been saved to file', list(filtered_data))
     else:
         LOGGER.success('filtered_data was empty')
