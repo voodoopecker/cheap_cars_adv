@@ -1,6 +1,11 @@
-'''Settings'''
+"""Settings:
+TOKEN - your bot token taken from BotFather.
+ADMIN_ID - telegram account ID who controls bot.
+GROUP_ID - telegram group ID where posts send.
+MAIN_LINK - source page link from where data scraps.
+"""
 
-TOKEN = ''
-ADMIN_ID = 0
-GROUP_ID = -0
-MAIN_LINK = 'https://auto.ru/sankt-peterburg/cars/all/?top_days=1&with_empty_groups=true&seller_group=PRIVATE&sort=cr_date-desc'
+TOKEN: str = ''
+ADMIN_ID: int = 0
+GROUP_ID: int = 0
+MAIN_LINK: str = ''

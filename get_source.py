@@ -1,4 +1,4 @@
-'''Collection of functions used for retrieving the source code of a web page'''
+"""Collection of functions used for retrieving the source code of a web page"""
 
 __all__ = ['browser_open_source_page', 'save_source_page', 'gui_browser_source_saving']
 
@@ -12,15 +12,16 @@ from loguru import logger as LOGGER
 
 import settings
 
+
 class NewChrome(uc.Chrome):
-    '''New uc.Chrome class for preventing browser shutdown'''
+    """New uc.Chrome class for preventing browser shutdown"""
 
     def __del__(self):
         pass
 
 
 async def browser_open_source_page():
-    '''Function to get page source'''
+    """Function to get page source"""
 
     # options = uc.ChromeOptions()
     # options.add_argument('--headless=new')
@@ -47,7 +48,7 @@ async def browser_open_source_page():
 
 
 async def save_source_page(page):
-    '''Saves downloaded page to file'''
+    """Saves downloaded page to file"""
 
     with open('source.html', 'w', encoding='utf-8') as output_file:
         output_file.write(page)
@@ -55,7 +56,7 @@ async def save_source_page(page):
 
 
 async def gui_browser_source_saving():
-    '''Browser GUI algorithm for working with websites that have protection against automated scraping'''
+    """Browser GUI algorithm for working with websites that have protection against automated scraping"""
 
     pyautogui.hotkey('ctrl', 's')  # open save as dialog
     time.sleep(3)

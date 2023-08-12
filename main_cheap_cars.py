@@ -9,8 +9,9 @@ from use_data import starter
 
 LOGGER.add('logs/debug.log', format='{time}|{level}|{module}.{function}:{line} - {message}', level='DEBUG', rotation='00:00', compression='zip')
 
+
 async def main():
-    '''Main function. Start me to use bot.'''
+    """Main function. Start me to use bot."""
 
     bot = Bot(TOKEN)
     dp = Dispatcher()

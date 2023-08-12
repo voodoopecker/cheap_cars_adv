@@ -1,17 +1,18 @@
-'''Collection of functions used for gathering and filtering data from source page'''
+"""Collection of functions used for gathering and filtering data from source page"""
 
 __all__ = ['gathering_data', 'saving_cleared_data_to_file', 'reduce_cleared_data', 'saving_filtered_data_to_file']
 
 import re
 import json
+import os
 
 from loguru import logger as LOGGER
 
 
 async def gathering_data():
-    '''Function to filter and struct data'''
+    """Function to filter and struct data"""
 
-    with open('source.html', encoding='utf-8') as input_file:
+    with open('source.html', 'r', encoding='utf-8') as input_file:
         page = input_file.read()
     LOGGER.success('source.html has been successfully uploaded')
 
@@ -76,7 +77,11 @@ async def gathering_data():
 
 
 async def saving_cleared_data_to_file(cleared_data):
-    '''Function to save data dictionary without None items'''
+    """Function to save data dictionary without None items"""
+
+    if not os.path.exists('cleared_data.json'):
+        with open('cleared_data.json', 'w', encoding='utf-8') as output_file:
+            output_file.write('{}')
 
     with open('cleared_data.json', 'r', encoding='utf-8') as input_file:
         data = json.load(input_file)
@@ -89,7 +94,7 @@ async def saving_cleared_data_to_file(cleared_data):
 
 
 async def reduce_cleared_data():
-    '''Function to reduce maximum elements in cleared data'''
+    """Function to reduce maximum elements in cleared data"""
 
     with open('cleared_data.json', 'r', encoding='utf-8') as input_file:
         data = json.load(input_file)
@@ -103,11 +108,11 @@ async def reduce_cleared_data():
 
 
 async def saving_filtered_data_to_file(filtered_data):
-    '''Function to save data dictionary with filtered advertisements only'''
+    """Function to save data dictionary with filtered advertisements only"""
 
     if filtered_data:
         with open('filtered_data.json', 'w', encoding='utf-8') as output_file:
             json.dump(filtered_data, output_file)
         LOGGER.success('filtered_data has been saved to file', list(filtered_data))
     else:
-        LOGGER.success('filtered_data was empty')
+        LOGGER.debug('filtered_data was empty')
