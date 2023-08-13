@@ -29,12 +29,14 @@ async def preparing_messages():
         filtered_data = json.load(filtered_data_file)
         posted_data = json.load(posted_data_file)
         messages = {}
+        LOGGER.success('New items to be posted:')
         for saleid, data in filtered_data.items():
             if saleid in posted_data:
                 continue
             else:
                 messages[saleid] = data
                 posted_data += [saleid]
+                LOGGER.debug(f'{saleid} - {data}')
             await asyncio.sleep(0.01)
 
     with open('posted_data.json', 'w', encoding='utf-8') as output_file:

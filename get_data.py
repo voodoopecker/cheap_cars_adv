@@ -14,7 +14,7 @@ async def gathering_data():
 
     with open('source.html', 'r', encoding='utf-8') as input_file:
         page = input_file.read()
-    LOGGER.success('source.html has been successfully uploaded')
+    # LOGGER.success('source.html has been successfully uploaded')
 
     regex_main = re.findall(
         ',\"year\":(\d+).*?'
@@ -118,6 +118,8 @@ async def saving_filtered_data_to_file(filtered_data):
     if filtered_data:
         with open('filtered_data.json', 'w', encoding='utf-8') as output_file:
             json.dump(filtered_data, output_file)
-        LOGGER.success('filtered_data has been saved to file', list(filtered_data))
+        LOGGER.success(f'filtered_data has been saved to file:')
+        for saleid, data in filtered_data.items():
+            LOGGER.debug(f'{saleid} - {data}')
     else:
         LOGGER.debug('filtered_data was empty')

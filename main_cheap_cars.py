@@ -1,10 +1,12 @@
+"""This is triggering the entire project. Run main_cheap_cars.py to start the bot."""
+
 from loguru import logger as LOGGER
 import asyncio
 from aiogram import Bot, Dispatcher
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 import handlers
-from settings import TOKEN
+from settings import TOKEN, SCHEDULER_TIME
 from use_data import starter
 
 LOGGER.add('logs/debug.log', format='{time}|{level}|{module}.{function}:{line} - {message}', level='DEBUG', rotation='00:00', compression='zip')
@@ -17,7 +19,7 @@ async def main():
     dp = Dispatcher()
 
     scheduler = AsyncIOScheduler()
-    scheduler.add_job(starter, 'interval', seconds=3600)
+    scheduler.add_job(starter, 'interval', seconds=SCHEDULER_TIME)
     scheduler.start()
 
     dp.include_router(handlers.router)
