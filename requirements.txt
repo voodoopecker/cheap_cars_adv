@@ -3,8 +3,8 @@ loguru==0.7.0
 undetected-chromedriver==3.5.0
 aiogram==3.0.0b9
 apscheduler==3.10.1
-?asyncio==3.4.3
 
-?pyautogui=0.9.54
-sudo apt-get install python3-tk python3-dev
-sudo apt-get install xdotool => xdotool getmouselocation
+# asyncio==3.4.3
+# pyautogui=0.9.54
+# sudo apt-get install python3-tk python3-dev
+# sudo apt-get install xdotool => xdotool getmouselocation
