@@ -14,7 +14,6 @@ async def gathering_data():
 
     with open('source.html', 'r', encoding='utf-8') as input_file:
         page = input_file.read()
-    # LOGGER.success('source.html has been successfully uploaded')
 
     regex_main = re.findall(
         ',\"year\":(\d+).*?'
@@ -31,20 +30,30 @@ async def gathering_data():
         , page, flags=re.DOTALL | re.MULTILINE)
 
     # regex = re.findall(',\"year\":(\d+).*?\"tag_range\":{\"from\":(\d+),\"to\":(\d+).*?,\"hash\":\"(\w+)\",.*?\"id\":\"(\d+)\",.*?{\"price\":(\d+),.*?\"saleId\":\"(\d+-\w+).*?\"mileage\":(\d+).*?\"mark_info\".*?\"name\":\"(\w+)\".*?\"model_info\".*?\"name\":\"(\w+).*?\"super_gen\".*?\"name\":\"(.*?)\"', page)
-    regex_saleid_photo = re.findall('\"saleId\":\"(\d+-\w+)\",.*?\"mileage\":(\d+).*?,\"1200x900n\":\"(.*?)\".*?', page)
-    regex_name_link_saleid_price = re.findall(r'240\",\"name\":\"(.*?|\s*?)\",(.*?|\s*?)\"url\":\"(.*?|\s*?/)(\d+-\w+)/\",\"price\":(\d+)', page)
+    # regex_saleid_photo = re.findall('\"saleId\":\"(\d+-\w+)\",.*?\"mileage\":(\d+).*?,\"1200x900n\":\"(.*?)\".*?', page, flags=re.DOTALL | re.MULTILINE)
+    # print(len(regex_saleid_photo), regex_saleid_photo)
+    regex_name_link_saleid_price = re.findall(r'ImageObject.*?\",\"name\":\"(.*?|\s*?)\",\"creator\"(.*?|\s*?)\"url\":\"(.*?|\s*?\/)(\d+-\w+)\/\",\"price\":(\d+)', page)
 
     # for num, item in enumerate(regex_main, 1):
     #     print(num, item)
     # print()
-    # for num, item in enumerate(regex_saleid_photo, 1):
-    #     print(num, item)
-    # print()
+    #
     # for num, item in enumerate(regex_name_link_saleid_price, 1):
     #     print(num, item)
 
     sale_ids = list(map(lambda x: x[3], regex_name_link_saleid_price))
+    # sale_ids = list(map(lambda x: x[4], regex_main))
     data_dict = dict.fromkeys(sale_ids, {})
+
+    regex_saleid_photo = []
+    for item in sale_ids:
+        regex_photo = re.findall(fr'({item})\",.*?\"mileage\":(\d+).*?,\"1200x900n\":\"(.*?)\".*?', page, flags=re.DOTALL | re.MULTILINE)
+        regex_saleid_photo.append(*regex_photo)
+
+    # print(len(regex_saleid_photo))
+    # for num, item in enumerate(regex_saleid_photo, 1):
+    #     print(num, item)
+    # print()
 
     counter = 0
     for item in sale_ids:
