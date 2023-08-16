@@ -2,7 +2,7 @@
 
 __all__ = ['browser_open_source_page', 'save_source_page']
 
-import time
+import asyncio
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -35,12 +35,12 @@ async def browser_open_source_page():
     driver = webdriver.Chrome(options=options)
 
     driver.get(settings.MAIN_LINK)
-    time.sleep(10)
+    await asyncio.sleep(10)
     driver.save_screenshot('screenshot.png')
     driver.get(f'view-source:{settings.MAIN_LINK}')
-    time.sleep(10)
+    await asyncio.sleep(10)
     page = driver.page_source
-    time.sleep(3)
+    await asyncio.sleep(3)
 
     await save_source_page(page)
 
@@ -60,14 +60,14 @@ async def save_source_page(page):
 #     """Browser GUI algorithm for working with websites that have protection against automated scraping"""
 #
 #     pyautogui.hotkey('ctrl', 's')  # open save as dialog
-#     time.sleep(3)
+#     await asyncio.sleep(3)
 #     pyautogui.press('enter')
-#     time.sleep(3)
+#     await asyncio.sleep(3)
 #     pyautogui.hotkey('ctrl', 'j')  # open downloads page
-#     time.sleep(3)
+#     await asyncio.sleep(3)
 #     pyautogui.click(x=841, y=403)  # press stop
-#     time.sleep(3)
+#     await asyncio.sleep(3)
 #     pyautogui.click(x=752, y=348)  # press retry
-#     time.sleep(5)
+#     await asyncio.sleep(5)
 #     pyautogui.hotkey('alt', 'f4')
-#     time.sleep(1)
+#     await asyncio.sleep(1)

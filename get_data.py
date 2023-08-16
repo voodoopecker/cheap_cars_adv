@@ -48,7 +48,10 @@ async def gathering_data():
     regex_saleid_photo = []
     for item in sale_ids:
         regex_photo = re.findall(fr'({item})\",.*?\"mileage\":(\d+).*?,\"1200x900n\":\"(.*?)\".*?', page, flags=re.DOTALL | re.MULTILINE)
-        regex_saleid_photo.append(*regex_photo)
+        try:
+            regex_saleid_photo.append(*regex_photo)
+        except:
+            LOGGER.error(f'Error while getting photo of saleid: {item}')
 
     # print(len(regex_saleid_photo))
     # for num, item in enumerate(regex_saleid_photo, 1):
@@ -109,8 +112,8 @@ async def reduce_cleared_data():
     with open('cleared_data.json', 'r', encoding='utf-8') as input_file:
         data = json.load(input_file)
         if len(data) > 500:
-            for i in range(len(data)-200):
-                del data[list(data)[i]]
+            for i in range(len(data)-300):
+                del data[list(data)[0]]
 
             with open('cleared_data.json', 'w', encoding='utf-8') as output_file:
                 json.dump(data, output_file)
