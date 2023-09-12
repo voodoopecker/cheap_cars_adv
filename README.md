@@ -36,6 +36,6 @@ pip install -r requirements.txt
 * Set bot settings in settings.py:
   * ```SCHEDULER_TIME``` - interval between runs in seconds
 
-* Run script:
+* Run bot:
   * If you use a virtual environment, you need to activate it.
   * Run ```python3 main_cheap_cars.py```
