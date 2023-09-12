@@ -2,7 +2,7 @@
 ![](desc.jpg)
 
 # Description
-This tool is designed to parse advertisements for cars being sold on free boards, filter out only the most profitable offers with prices much lower than the average, and automatically post them to your TG channel using a scheduler.
+This tool is designed to parse advertisements for cars being sold on free boards, filter out only the most profitable offers with prices much lower than the average and automatically post them to your TG channel using a scheduler.
 
 ---
 # Stack
