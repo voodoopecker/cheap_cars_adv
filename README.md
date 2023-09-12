@@ -1,4 +1,4 @@
-# Cheap Car Adv Poster Bot: Automatic search and post for profitable car sales offers.
+# Cheap Car Adv Poster Bot: Automatic search and post profitable car sales offers.
 ![](desc.jpg)
 
 # Description
