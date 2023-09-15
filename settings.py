@@ -11,6 +11,7 @@ ADMIN_ID: int = 6786786734
 GROUP_ID: int = -1007638736412
 MAIN_LINK: str = 'https://XautoX.ru/moscow/cars'
 """
+
 from dotenv import load_dotenv
 import os
 

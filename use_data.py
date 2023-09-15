@@ -79,7 +79,6 @@ async def post_message():
         await asyncio.sleep(3)
 
     await bot.send_message(chat_id=ADMIN_ID, text=f'{posts_counter} messages were send.')
-# asyncio.run(post_message())
 
 
 async def starter():
@@ -92,4 +91,3 @@ async def starter():
     await get_data.gathering_data()
     await post_message()
     LOGGER.debug('Done! Waiting for the next launch ...')
-# asyncio.run(starter())
